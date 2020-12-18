@@ -67,7 +67,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: { folder: "striveMovies" },
 });
-/* sintassi per salvare file nella cloud solo per imagini () */
+/* sintassi per salvare file nel cloud solo per imagini */
 
 const cloudinaryMulter = multer({ storage: storage });
 /* Libreria che salva i file multer */
@@ -84,11 +84,11 @@ router.post(
       if (mediaIndex !== -1) {
         const updatedMedia = [
           ...AllMedia.slice(0, mediaIndex),
-          { ...allMedia[mediaIndex], POSTER: req.file.path },
+          { ...AllMedia[mediaIndex], POSTER: req.file.path },
           ...AllMedia.slice(mediaIndex + 1),
         ];
-        allMedia.push(updatedMedia);
-        writeMedia(allMedia);
+        AllMedia.push(updatedMedia);
+        writeMedia(AllMedia);
         res.status(200).send(updatedMedia[mediaIndex]);
       } else {
         const error = new Error();
@@ -100,5 +100,7 @@ router.post(
     }
   }
 );
+
+/*Da rivedere ^  */
 
 module.exports = router;
